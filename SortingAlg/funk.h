@@ -3,7 +3,6 @@
 #include <ctime>
 #include <cstdlib>
 #include <fstream>
-#include "SortingAlg.h"
 using namespace std;
 
 long long compareCounterBubble = 0;
@@ -22,6 +21,19 @@ void StartingInfo()
 	cout << "7) Сортирование массива сортировки перемешиванием" << endl;
 	cout << "8) Тестирование эффективности обоих сортировок" << endl;
 	cout << "Для выхода введите -1" << endl;
+}
+
+void WriteData(int size, const clock_t& t1, const clock_t& t0)
+{
+	ofstream out("D:\\Repositories\\SortingAlg\\data.txt", std::ios::app);
+	if (out.is_open())
+	{
+		out << "Размер массива: " << size << endl;
+		out << "Число операций сравнения: " << compareCounterMixing << endl;
+		out << "Число операций обмена: " << changeCounterMixing << endl;
+		out << "Время: " << (double)(t1 - t0) / CLOCKS_PER_SEC << endl;
+	}
+	out.close();
 }
 
 void SetArraySizes(int* arr)
@@ -129,21 +141,9 @@ void MixingSort(int* array, int size)
 	compareCounterMixing = 0;
 }
 
-void WriteData(int size, const clock_t& t1, const clock_t& t0)
-{
-	ofstream out("D:\\Repositories\\SortingAlg\\data.txt", std::ios::app);
-	if (out.is_open())
-	{
-		out << "Размер массива: " << size << endl;
-		out << "Число операций сравнения: " << compareCounterMixing << endl;
-		out << "Число операций обмена: " << changeCounterMixing << endl;
-		out << "Время: " << (double)(t1 - t0) / CLOCKS_PER_SEC << endl;
-	}
-	out.close();
-}
-
 void PrintArray(int* array, int size)
 {
 	for (size_t i = 0; i < size; i++)
 		cout << array[i] << " ";
 	cout << endl;
+}
