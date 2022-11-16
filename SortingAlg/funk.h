@@ -23,15 +23,15 @@ void StartingInfo()
 	cout << "Для выхода введите -1" << endl;
 }
 
-void WriteData(int size, const clock_t& t1, const clock_t& t0)
+void WriteData(int size, double duration, long long swap, long long compare)
 {
 	ofstream out("D:\\Repositories\\SortingAlg\\data.txt", std::ios::app);
 	if (out.is_open())
 	{
 		out << "Размер массива: " << size << endl;
-		out << "Число операций сравнения: " << compareCounterMixing << endl;
-		out << "Число операций обмена: " << changeCounterMixing << endl;
-		out << "Время: " << (double)(t1 - t0) / CLOCKS_PER_SEC << endl;
+		out << "Число операций сравнения: " << compare << endl;
+		out << "Число операций обмена: " << swap << endl;
+		out << "Время: " << duration << endl;
 	}
 	out.close();
 }
@@ -65,7 +65,7 @@ void SetRandValues(int* array, int size)
 void SetSortValues(int* array, int size)
 {
 	for (int i = 0; i < size; i++)
-		array[i] = i;
+		array[i] =i;  // size-1
 }
 
 void WriteInFile(int* array, int size)
@@ -105,7 +105,8 @@ void BubbleSort(int* array, int size)
 		}
 	}
 	auto t1 = clock();
-	WriteData(size, t1, t0);
+	double duration = (double)(t1 - t0) / CLOCKS_PER_SEC;
+	WriteData(size, duration, changeCounterBubble, compareCounterBubble);
 	changeCounterBubble = 0;
 	compareCounterBubble = 0;
 }
@@ -136,7 +137,8 @@ void MixingSort(int* array, int size)
 		right--;
 	}
 	auto t1 = clock();
-	WriteData(size, t1, t0);
+	double duration = (double)(t1 - t0) / CLOCKS_PER_SEC;
+	WriteData(size, duration, changeCounterMixing, compareCounterMixing);
 	changeCounterMixing = 0;
 	compareCounterMixing = 0;
 }
